@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Screenshoter.Interaction.Context
+﻿namespace Screenshoter.Interaction.Context
 {
     public class DbInitializer
     {
-
+        public static void Initialize(ScreenshotsDbContext context)
+        {
+            context.Database.EnsureCreated();
+        }
     }
 }
