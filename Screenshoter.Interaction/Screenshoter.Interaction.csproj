@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sceenshoter.Application\Sceenshoter.Application.csproj" />
-    <ProjectReference Include="..\Sceenshoter.Domain\Sceenshoter.Domain.csproj" />
+    <ProjectReference Include="..\Sceenshoter.Application\Screenshoter.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,6 +10,7 @@ namespace Screenshoter.Interaction.Context
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration["DbConnection"];
+
             services.AddDbContext<ScreenshotsDbContext>(options =>
             {
                 options.UseSqlite(connectionString);

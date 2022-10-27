@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{CFED6065-765D-41D5-B979-8F5E8D3AC6A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sceenshoter.Application", "Sceenshoter.Application\Sceenshoter.Application.csproj", "{7EC0A804-72A8-4371-8592-F5BAB4D091FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screenshoter.Application", "Sceenshoter.Application\Screenshoter.Application.csproj", "{7EC0A804-72A8-4371-8592-F5BAB4D091FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sceenshoter.Domain", "Sceenshoter.Domain\Sceenshoter.Domain.csproj", "{0070DE1F-DA34-4FDD-9078-3036A0BD5952}"
 EndProject
