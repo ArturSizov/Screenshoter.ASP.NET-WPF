@@ -38,7 +38,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = serviceProvider.GetRequiredService<ScreenshotsDbContext>();
-        //DbInitializer.Initialize(context);
+        DbInitializer.Initialize(context);
 
         //var NewNotes = new ObservableCollection<Note>(context.Notes);
     }
