@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interaction\Commands\CreateScreenshot\" />
     <Folder Include="Interaction\Commands\DeleteScreenshot\" />
   </ItemGroup>
 

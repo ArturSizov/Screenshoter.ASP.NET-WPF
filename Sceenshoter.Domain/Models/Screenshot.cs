@@ -4,14 +4,14 @@ namespace Sceenshoter.Domain.Models
 {
     public class Screenshot : BindableBase
     {
-        private int _id;
+        private Guid _id;
 
         private string? _screenshot;
 
-        private string? _date;
+        private DateTime? _createDate;
 
-        public int Id { get => _id; set => SetProperty(ref _id, value); }
-        public string Base64 { get => _screenshot; set => SetProperty(ref _screenshot, value); }
-        public string Date { get => _date; set => SetProperty(ref _date, value); }
+        public Guid Id { get => _id; set => SetProperty(ref _id, value); }
+        public string? Base64 { get => _screenshot; set => SetProperty(ref _screenshot, value); }
+        public DateTime? CreateDate { get => _createDate; set => SetProperty(ref _createDate, value); }
     }
 }
