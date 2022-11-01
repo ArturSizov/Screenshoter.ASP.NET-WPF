@@ -1,5 +1,5 @@
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sceenshoter.Application.Interfaces;
+using Screenshoter.Application;
 using Screenshoter.Application.Common.Mappings;
 using Screenshoter.Interaction.Context;
 using System.Reflection;
@@ -16,7 +16,7 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile(new AssemblyMappingProfile(typeof(IScreenshoterDbContext).Assembly));
 });
 
-//builder.Services.AddApplication;
+builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddControllers();
 

@@ -14,6 +14,7 @@ namespace Screenshoter.Application.Interaction.Commands.CreateScreenshot
         {
             var screenshot = new Screenshot
             { 
+                UserId = request.UserId,
                 Id = Guid.NewGuid(),
                 Base64 = request.Base64,
                 CreateDate = DateTime.Now

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Sceenshoter.Application.Interaction.Queries.GetScreensotList
 {
-    public class GetScreenshotListQuery
+    public class GetScreenshotListQuery : IRequest<ScreenshotList>
     {
-
+        public Guid UserId { get; set; }
     }
 }
