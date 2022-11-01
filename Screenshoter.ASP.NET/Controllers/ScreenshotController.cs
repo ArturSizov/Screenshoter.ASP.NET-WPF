@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sceenshoter.Application.Interaction.Queries.GetScreensotList;
 using Screenshoter.Application.Interaction.Commands.CreateScreenshot;
+using Screenshoter.Application.Interaction.Commands.DeleteScreenshot;
 using Screenshoter.ASP.NET.Models;
 
 namespace Screenshoter.ASP.NET.Controllers
@@ -47,6 +49,29 @@ namespace Screenshoter.ASP.NET.Controllers
             var command = _mapper.Map<CreateScreenshotCommand>(createScreenshotDto);
             var screenshotId = await Mediator.Send(command);
             return Ok(screenshotId);
+        }
+
+        /// <summary>
+        /// Deletes the screenshot by id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// DELETE /screenshot/88DEB432-062F-43DE-8DCD-8B6EF79073D3
+        /// </remarks>
+        /// <param name="id">Id of the screenshot (guid)</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var command = new DeleteScreenshotCommand
+            {
+                Id = id
+            };
+            await Mediator.Send(command);
+            return NoContent();
         }
     } 
 }
