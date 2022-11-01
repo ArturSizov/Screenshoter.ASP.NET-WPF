@@ -15,8 +15,8 @@ namespace Screenshoter.ASP.NET.Models
         {
             profile.CreateMap<CreateScreenshotDto, CreateScreenshotCommand>()
                 .ForMember(screenshotCommand => screenshotCommand.Base64,
-                    opt => opt.MapFrom(screenshotDto => screenshotDto.CreateDate))
-                .ForMember(screenshotCommand => screenshotCommand.Base64,
+                    opt => opt.MapFrom(screenshotDto => screenshotDto.Base64))
+                .ForMember(screenshotCommand => screenshotCommand.CreateDate,
                     opt => opt.MapFrom(screenshotDto => screenshotDto.CreateDate));
         }
     }

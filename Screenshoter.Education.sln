@@ -9,17 +9,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{CFED6065-765D-41D5-B979-8F5E8D3AC6A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screenshoter.Application", "Sceenshoter.Application\Screenshoter.Application.csproj", "{7EC0A804-72A8-4371-8592-F5BAB4D091FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screenshoter.Application", "Sceenshoter.Application\Screenshoter.Application.csproj", "{7EC0A804-72A8-4371-8592-F5BAB4D091FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sceenshoter.Domain", "Sceenshoter.Domain\Sceenshoter.Domain.csproj", "{0070DE1F-DA34-4FDD-9078-3036A0BD5952}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sceenshoter.Domain", "Sceenshoter.Domain\Sceenshoter.Domain.csproj", "{0070DE1F-DA34-4FDD-9078-3036A0BD5952}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screenshoter.Avalonia.UI", "Screenshoter.Avalonia\Screenshoter.Avalonia.UI.csproj", "{7A0DD4F1-DBDE-43A9-A93D-BA91440DB2ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screenshoter.Avalonia.UI", "Screenshoter.Avalonia\Screenshoter.Avalonia.UI.csproj", "{7A0DD4F1-DBDE-43A9-A93D-BA91440DB2ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screenshoter.Interaction", "Screenshoter.Interaction\Screenshoter.Interaction.csproj", "{B4671C1B-CC3D-48AC-B60A-FD93D67D0E96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screenshoter.Interaction", "Screenshoter.Interaction\Screenshoter.Interaction.csproj", "{B4671C1B-CC3D-48AC-B60A-FD93D67D0E96}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{4F718B11-A767-4DC0-BF46-51CF0762C159}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screenshoter.ASP.NET", "Screenshoter.ASP.NET\Screenshoter.ASP.NET.csproj", "{A7DC8E55-D37C-4E0A-986A-E1F24A84B31B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screenshoter.ASP.NET", "Screenshoter.ASP.NET\Screenshoter.ASP.NET.csproj", "{A7DC8E55-D37C-4E0A-986A-E1F24A84B31B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -31,7 +31,7 @@ namespace Screenshoter.ASP.NET.Controllers
         {
             var screenshot = new GetScreenshotListQuery
             {
-               UserId = UserId
+               Id = Id
             };
             var vm = await Mediator.Send(screenshot);
             return Ok(vm);
@@ -48,6 +48,7 @@ namespace Screenshoter.ASP.NET.Controllers
         {
             var command = _mapper.Map<CreateScreenshotCommand>(createScreenshotDto);
             var screenshotId = await Mediator.Send(command);
+
             return Ok(screenshotId);
         }
 
@@ -62,7 +63,7 @@ namespace Screenshoter.ASP.NET.Controllers
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Delete(Guid id)
         {
