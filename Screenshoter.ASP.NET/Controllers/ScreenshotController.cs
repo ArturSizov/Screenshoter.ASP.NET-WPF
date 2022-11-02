@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Sceenshoter.Application.Interaction.Queries.GetScreensotList;
-using Screenshoter.Application.Interaction.Commands.CreateScreenshot;
-using Screenshoter.Application.Interaction.Commands.DeleteScreenshot;
+using Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList;
 using Screenshoter.ASP.NET.Models;
+using Screenshoter.ScreenshoterApplication.Interaction.Commands.CreateScreenshot;
+using Screenshoter.ScreenshoterApplication.Interaction.Commands.DeleteScreenshot;
 
 namespace Screenshoter.ASP.NET.Controllers
 {

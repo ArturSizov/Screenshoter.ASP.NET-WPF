@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sceenshoter.Domain.Models;
 
-namespace Sceenshoter.Application.Interfaces
+namespace Sceenshoter.ScreenshoterApplication.Interfaces
 {
     public interface IScreenshoterDbContext
     {

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Screenshoter.ScreenshoterApplication.Interfaces;
+using Screenshoter.WPF.UI.Infrastructure;
 using System.Windows;
+using Unity;
 
 namespace Screenshoter.WPF.UI
 {
@@ -13,5 +10,14 @@ namespace Screenshoter.WPF.UI
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            ConfigureIOC();
+        }
+        private void ConfigureIOC()
+        {
+            RootContainer.Container.RegisterSingleton<IScreenshoterHttpClient, ScreenshoterHttpClient>();
+
+        }
     }
 }

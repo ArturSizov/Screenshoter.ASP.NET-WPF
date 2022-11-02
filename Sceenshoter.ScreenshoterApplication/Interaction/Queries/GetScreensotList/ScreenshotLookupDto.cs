@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Sceenshoter.Domain.Models;
-using Screenshoter.Application.Common.Mappings;
+using Screenshoter.ScreenshoterApplication.Common.Mappings;
 
-namespace Sceenshoter.Application.Interaction.Queries.GetScreensotList
+namespace Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList
 {
     public class ScreenshotLookupDto : IMapWith<Screenshot>
     {

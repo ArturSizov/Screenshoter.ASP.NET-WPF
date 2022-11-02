@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sceenshoter.Application.Interaction.Queries.GetScreensotList
+namespace Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreeshotDetails
 {
-    public class GetScreenshotListQueryValidator
+    public class GetScreensotDetailsQuery
     {
 
     }

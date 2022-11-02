@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System.Reflection;
 
-namespace Screenshoter.Application.Common.Mappings
+namespace Screenshoter.ScreenshoterApplication.Common.Mappings
 {
     public class AssemblyMappingProfile : Profile
     {

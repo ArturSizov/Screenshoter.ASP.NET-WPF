@@ -1,4 +1,4 @@
-﻿namespace Sceenshoter.Application.Interaction.Queries.GetScreensotList
+﻿namespace Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList
 {
     public class ScreenshotList
     {

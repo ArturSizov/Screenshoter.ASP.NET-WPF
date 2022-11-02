@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Sceenshoter.Application.Interfaces;
+using Sceenshoter.ScreenshoterApplication.Interfaces;
 
 namespace Screenshoter.Interaction.Context
 {

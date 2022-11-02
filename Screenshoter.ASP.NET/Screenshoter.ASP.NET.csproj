@@ -8,11 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="MediatR" Version="11.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sceenshoter.Application\Screenshoter.Application.csproj" />
+    <ProjectReference Include="..\Sceenshoter.ScreenshoterApplication\Screenshoter.ScreenshoterApplication.csproj" />
     <ProjectReference Include="..\Screenshoter.Interaction\Screenshoter.Interaction.csproj" />
   </ItemGroup>
 

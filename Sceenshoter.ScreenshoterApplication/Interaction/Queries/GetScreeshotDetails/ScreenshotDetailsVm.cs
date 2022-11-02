@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sceenshoter.Application.Interaction.Queries.GetScreeshotDetails
+namespace Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreeshotDetails
 {
-    public class GetScreensotDetailsQuery
+    public class ScreenshotDetailsVm
     {
 
     }

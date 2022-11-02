@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Sceenshoter.Application.Interfaces;
+using Sceenshoter.ScreenshoterApplication.Interfaces;
 using Sceenshoter.Domain.Models;
 using Screenshoter.Interaction.EntityTypeConfigurations;
 

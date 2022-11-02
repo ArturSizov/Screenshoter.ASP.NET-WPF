@@ -1,7 +1,7 @@
-using Sceenshoter.Application.Interfaces;
-using Screenshoter.Application;
-using Screenshoter.Application.Common.Mappings;
+using Sceenshoter.ScreenshoterApplication.Interfaces;
 using Screenshoter.Interaction.Context;
+using Screenshoter.ScreenshoterApplication;
+using Screenshoter.ScreenshoterApplication.Common.Mappings;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);

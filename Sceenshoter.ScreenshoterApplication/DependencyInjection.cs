@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace Screenshoter.Application
+namespace Screenshoter.ScreenshoterApplication
 {
     public static class DependencyInjection
     {

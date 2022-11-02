@@ -1,15 +1,9 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Sceenshoter.Application.Interfaces;
+using Sceenshoter.ScreenshoterApplication.Interfaces;
 using Sceenshoter.Domain.Models;
-using Screenshoter.Application.Common.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Screenshoter.ScreenshoterApplication.Common.Exceptions;
 
-namespace Screenshoter.Application.Interaction.Commands.DeleteScreenshot
+namespace Screenshoter.ScreenshoterApplication.Interaction.Commands.DeleteScreenshot
 {
     public class DeleteScreenshotCommandHandler : IRequestHandler<DeleteScreenshotCommand>
     {

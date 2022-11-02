@@ -11,7 +11,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sceenshoter.Application\Screenshoter.Application.csproj" />
+    <ProjectReference Include="..\Sceenshoter.Domain\Sceenshoter.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Screenshoter.ScreenshoterApplication">
+      <HintPath>..\Sceenshoter.ScreenshoterApplication\obj\Debug\net6.0\ref\Screenshoter.ScreenshoterApplication.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

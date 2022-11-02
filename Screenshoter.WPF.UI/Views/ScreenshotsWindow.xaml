@@ -11,7 +11,7 @@
     <Grid>
         <StackPanel>
             <TextBlock Text="{Binding Title}"/>
-            <Button Content="Load Creenshots" Command="{Binding LoadScreenshots}"/>
+            <Button Content="Load Creenshots" Command="{Binding GetAllScreenshots}"/>
         </StackPanel>
     </Grid>
 </Window>

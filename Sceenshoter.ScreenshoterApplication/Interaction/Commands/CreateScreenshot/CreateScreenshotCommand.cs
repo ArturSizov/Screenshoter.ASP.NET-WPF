@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Screenshoter.Application.Interaction.Commands.CreateScreenshot
+namespace Screenshoter.ScreenshoterApplication.Interaction.Commands.CreateScreenshot
 {
     public class CreateScreenshotCommand : IRequest<Guid>
     {

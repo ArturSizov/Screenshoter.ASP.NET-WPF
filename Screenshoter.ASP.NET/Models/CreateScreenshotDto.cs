@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Screenshoter.Application.Common.Mappings;
-using Screenshoter.Application.Interaction.Commands.CreateScreenshot;
+using Screenshoter.ScreenshoterApplication.Common.Mappings;
+using Screenshoter.ScreenshoterApplication.Interaction.Commands.CreateScreenshot;
 using System.ComponentModel.DataAnnotations;
 
 namespace Screenshoter.ASP.NET.Models

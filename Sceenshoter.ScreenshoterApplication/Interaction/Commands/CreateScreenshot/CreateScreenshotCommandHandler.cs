@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using Sceenshoter.Application.Interfaces;
+using Sceenshoter.ScreenshoterApplication.Interfaces;
 using Sceenshoter.Domain.Models;
 
-namespace Screenshoter.Application.Interaction.Commands.CreateScreenshot
+namespace Screenshoter.ScreenshoterApplication.Interaction.Commands.CreateScreenshot
 {
     public class CreateScreenshotCommandHandler : IRequestHandler<CreateScreenshotCommand, Guid>
     {

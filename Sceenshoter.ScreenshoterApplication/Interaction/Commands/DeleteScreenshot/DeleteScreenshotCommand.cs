@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Screenshoter.Application.Interaction.Commands.DeleteScreenshot
+namespace Screenshoter.ScreenshoterApplication.Interaction.Commands.DeleteScreenshot
 {
     public class DeleteScreenshotCommand : IRequest
     {

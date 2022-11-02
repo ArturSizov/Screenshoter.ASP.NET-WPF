@@ -1,4 +1,4 @@
-﻿namespace Screenshoter.Application.Common.Exceptions
+﻿namespace Screenshoter.ScreenshoterApplication.Common.Exceptions
 {
     public class NotFoundException : Exception
     {

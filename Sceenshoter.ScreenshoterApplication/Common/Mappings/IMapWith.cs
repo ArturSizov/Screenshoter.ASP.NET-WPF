@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Screenshoter.Application.Common.Mappings
+namespace Screenshoter.ScreenshoterApplication.Common.Mappings
 {
     public interface IMapWith<T>
     {
