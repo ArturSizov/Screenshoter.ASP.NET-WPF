@@ -60,11 +60,10 @@ namespace Screenshoter.ASP.NET.Controllers
         /// DELETE /screenshot/88DEB432-062F-43DE-8DCD-8B6EF79073D3
         /// </remarks>
         /// <param name="id">Id of the screenshot (guid)</param>
-        /// <returns>Returns NoContent</returns>
+        /// <returns>Returns Delete</returns>
         /// <response code="204">Success</response>
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status202Accepted)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(Guid id)
         {
             var command = new DeleteScreenshotCommand
