@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Unity" Version="5.11.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sceenshoter.Application\Screenshoter.ScreenshoterApplication.csproj" />
     <ProjectReference Include="..\Sceenshoter.ScreenshoterApplication\Screenshoter.ScreenshoterApplication.csproj" />
   </ItemGroup>
 

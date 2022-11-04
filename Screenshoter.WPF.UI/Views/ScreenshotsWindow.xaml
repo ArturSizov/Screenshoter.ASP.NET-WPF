@@ -4,14 +4,70 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Screenshoter.WPF.UI.Views"
+        xmlns:converter="clr-namespace:Screenshoter.WPF.UI.Converters"
         DataContext="{Binding Source={StaticResource Locator}, Path=ScreenshotsWindowViewModel, UpdateSourceTrigger=PropertyChanged}"
         mc:Ignorable="d"
         Title="{Binding Title}" 
         Height="450" Width="800">
+    <Window.Resources>
+        <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
+    </Window.Resources>
+
     <Grid>
-        <StackPanel>
-            <TextBlock Text="{Binding Title}"/>
-            <Button Content="Load Creenshots" Command="{Binding GetAllScreenshots}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!--#region Screenshot-->
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Скриншот" HorizontalAlignment="Center" Foreground="Red" FontSize="18"/>
+        <Border Grid.Row="1" Grid.Column="0" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" Margin="3">
+            <StackPanel>
+                <TextBlock Text="Чтобы сделать скриншот нажмите ALT+S или кнопку Скриншот" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Image Source="{Binding ImageScreen.Image64, Converter={StaticResource Base64ImageConverter}}"
+					   MinWidth="500" MinHeight="500" Margin="15" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </StackPanel>
+        </Border>
+        <!--#endregion-->
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Style="{StaticResource ButtonCustom}" Content="Скриншот" Command="{Binding TakeScreenshot, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Удалить" Command="{Binding DeleteScreenshot, UpdateSourceTrigger=PropertyChanged}" 
+                    CommandParameter="{Binding ImageScreen.Image64}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Загрузить на сервер" Command="{Binding UploadToServer, UpdateSourceTrigger=PropertyChanged}" 
+                    CommandParameter="{Binding ImageScreen.Image64}"/>
         </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+            <CheckBox Content="Загружать на сервер автоматический" Command="{Binding TakeScreenshot}"
+					  Margin="5,0,0,0"/>
+        </StackPanel>
+
+        <!--#region List-->
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Список скриншотов" HorizontalAlignment="Center" Foreground="Red" FontSize="18"/>
+
+        <Border Grid.Row="1" Grid.Column="1" Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" Margin="3">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <DataGrid ItemsSource="{Binding Screenshots}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Картинка" Binding="{Binding Base64}"/>
+                        <DataGridTextColumn Header="Дата" Binding="{Binding CreateDate}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Style="{StaticResource ButtonCustom}" Content="Загрузить" Command="{Binding GetAllScreenshotsAsync}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Сохранить" Command="{Binding DeleteScreenshot}" CommandParameter="{Binding ImageScreen.Image64}"/>
+        </StackPanel>
+        <!--#endregion-->
     </Grid>
 </Window>

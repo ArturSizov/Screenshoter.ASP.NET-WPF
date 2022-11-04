@@ -1,12 +1,18 @@
-﻿using Prism.Commands;
+﻿using Newtonsoft.Json;
+using Prism.Mvvm;
+using Sceenshoter.Domain.Models;
+using Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList;
+using Screenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList;
 using Screenshoter.ScreenshoterApplication.Interfaces;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
-using System.Text.Json.Serialization;
-using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace Screenshoter.WPF.UI.Infrastructure
 {
-    public class ScreenshoterHttpClient : IScreenshoterHttpClient
+    public class ScreenshoterHttpClient : BindableBase, IScreenshoterHttpClient
     {
         public HttpClient Client { get; }
 
@@ -18,8 +24,11 @@ namespace Screenshoter.WPF.UI.Infrastructure
             Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async void GetAllScreenshots()
+        public async Task<ObservableCollection<ScreenshotLookupDto>> GetAllScreenshotsAsync()
         {
-            var res = await Client.GetStringAsync("Screenshot");
+            var col = JsonConvert.DeserializeObject<ScreenshotList>(await Client.GetStringAsync("Screenshot"));
+
+            return  new ObservableCollection<ScreenshotLookupDto>(col.Screenshots);  
+        }
     }
 }
