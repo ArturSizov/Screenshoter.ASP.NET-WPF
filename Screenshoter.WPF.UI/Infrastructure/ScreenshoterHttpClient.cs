@@ -1,18 +1,13 @@
 ﻿using Newtonsoft.Json;
-using Prism.Mvvm;
-using Sceenshoter.Domain.Models;
 using Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList;
-using Screenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList;
 using Screenshoter.ScreenshoterApplication.Interfaces;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Screenshoter.WPF.UI.Infrastructure
 {
-    public class ScreenshoterHttpClient : BindableBase, IScreenshoterHttpClient
+    public class ScreenshoterHttpClient : IScreenshoterHttpClient
     {
         public HttpClient Client { get; }
 
