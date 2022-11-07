@@ -11,6 +11,7 @@
         Height="650" Width="1000">
     <Window.Resources>
         <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
+        <converter:IsEnabledButtonConverter x:Key="IsEnabledButtonConverter"/>
     </Window.Resources>
 
     <Grid>
@@ -40,11 +41,9 @@
         </Border>
         <!--#endregion-->
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Style="{StaticResource ButtonCustom}" Content="Скриншот" Command="{Binding TakeAScreenshot, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Style="{StaticResource ButtonCustom}" Content="Удалить" Command="{Binding DeleteScreenshot, UpdateSourceTrigger=PropertyChanged}" 
-                    CommandParameter="{Binding ImageScreen.Image64}"/>
-            <Button Style="{StaticResource ButtonCustom}" Content="Загрузить на сервер" Command="{Binding UploadToServer, UpdateSourceTrigger=PropertyChanged}" 
-                    CommandParameter="{Binding ImageScreen.Image64}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Скриншот" Command="{Binding TakeAScreenshot}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Удалить" Command="{Binding DeleteScreenshot}" IsEnabled="{Binding Screenshot.Base64, Converter={StaticResource IsEnabledButtonConverter}}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Загрузить на сервер" Command="{Binding UploadToServer}" IsEnabled="{Binding Screenshot.Base64, Converter={StaticResource IsEnabledButtonConverter}}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">

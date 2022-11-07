@@ -1,13 +1,17 @@
 ﻿using AutoMapper;
+using Prism.Mvvm;
 using Sceenshoter.Domain.Models;
 using Screenshoter.ScreenshoterApplication.Common.Mappings;
 
 namespace Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList
 {
-    public class ScreenshotLookupDto : IMapWith<Screenshot>
+    public class ScreenshotLookupDto : BindableBase, IMapWith<Screenshot>
     {
-        public string? Base64 { get; set; }
-        public DateTime? CreateDate { get; set; }
+        private string? _base64;
+
+        private DateTime? _createDate;
+        public string? Base64 { get => _base64; set => SetProperty(ref _base64, value); }
+        public DateTime? CreateDate { get => _createDate; set => SetProperty(ref _createDate, value); }
 
         public void Mapping(Profile profile)
         {

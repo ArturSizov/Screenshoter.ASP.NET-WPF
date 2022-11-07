@@ -17,14 +17,19 @@ namespace Screenshoter.WPF.UI.ViewModels
     {
         private IScreenshoterHttpClient _client;
         private ObservableCollection<ScreenshotLookupDto> _screenshots;
-
         public string Title => "Screenshoter";
 
-        public ScreenshotLookupDto Screenshot { get; set; } = new();
+        private ScreenshotLookupDto _screenshot = new();
+       
+        public ScreenshotLookupDto Screenshot { get => _screenshot; set => SetProperty(ref _screenshot, value); }
 
         public ObservableCollection<ScreenshotLookupDto> Screenshots { get => _screenshots; set => SetProperty(ref _screenshots, value); }
 
-        public ScreenshotsWindowViewModel(IScreenshoterHttpClient client) => _client = client;
+        public ScreenshotsWindowViewModel(IScreenshoterHttpClient client)
+        {
+            _client = client;
+
+        }
 
         public ICommand GetAllScreenshotsAsync => new DelegateCommand(async() =>
         {
@@ -32,6 +37,9 @@ namespace Screenshoter.WPF.UI.ViewModels
 
         });
 
+        /// <summary>
+        /// Screenshot Command
+        /// </summary>
         public ICommand TakeAScreenshot => new DelegateCommand(() =>
         {
             var bounds = Screen.GetBounds(Point.Empty);
@@ -47,5 +55,25 @@ namespace Screenshoter.WPF.UI.ViewModels
                 }
             }
         });
+
+        /// <summary>
+        /// Delete screen command
+        /// </summary>
+        public ICommand DeleteScreenshot => new DelegateCommand(() =>
+        {
+            Screenshot.Base64 = null;
+
+        });
+
+        /// <summary>
+        /// Upload to server command
+        /// </summary>
+        public ICommand UploadToServer => new DelegateCommand(() =>
+        {
+            MessageBox.Show(Screenshot.Base64);
+
+        });
+
+       
     }
 }
