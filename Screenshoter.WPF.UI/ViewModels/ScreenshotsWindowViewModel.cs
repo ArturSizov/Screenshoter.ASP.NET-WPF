@@ -1,5 +1,4 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
+﻿using DevExpress.Mvvm;
 using System.Drawing;
 using System.Windows.Input;
 using System.Drawing.Imaging;
@@ -9,7 +8,7 @@ using Screenshoter.ScreenshoterApplication.Interfaces;
 using Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList;
 using System.IO;
 using System;
-using Sceenshoter.Domain.Models;
+using Screenshoter.WPF.UI.Converters;
 
 namespace Screenshoter.WPF.UI.ViewModels
 {
@@ -17,19 +16,20 @@ namespace Screenshoter.WPF.UI.ViewModels
     {
         private IScreenshoterHttpClient _client;
         private ObservableCollection<ScreenshotLookupDto> _screenshots;
+        public bool _isEnabled = false;
+
         public string Title => "Screenshoter";
 
         private ScreenshotLookupDto _screenshot = new();
        
-        public ScreenshotLookupDto Screenshot { get => _screenshot; set => SetProperty(ref _screenshot, value); }
+        public ScreenshotLookupDto Screenshot { get => _screenshot; set => SetValue(ref _screenshot, value); }
 
-        public ObservableCollection<ScreenshotLookupDto> Screenshots { get => _screenshots; set => SetProperty(ref _screenshots, value); }
+        public ObservableCollection<ScreenshotLookupDto> Screenshots { get => _screenshots; set => SetValue(ref _screenshots, value); }
 
-        public ScreenshotsWindowViewModel(IScreenshoterHttpClient client)
-        {
-            _client = client;
+        public bool IsEnabled { get => _isEnabled; set => SetValue(ref _isEnabled, value); }
 
-        }
+
+        public ScreenshotsWindowViewModel(IScreenshoterHttpClient client) => _client = client;
 
         public ICommand GetAllScreenshotsAsync => new DelegateCommand(async() =>
         {
@@ -54,26 +54,25 @@ namespace Screenshoter.WPF.UI.ViewModels
                     Screenshot.Base64 = Convert.ToBase64String(ms.GetBuffer());
                 }
             }
+            IsEnabled = true;
         });
 
         /// <summary>
         /// Delete screen command
         /// </summary>
-        public ICommand DeleteScreenshot => new DelegateCommand(() =>
+        public ICommand DeleteScreenshot => new DelegateCommand<string>((str) =>
         {
             Screenshot.Base64 = null;
 
-        });
+        },(str)=> str != null);
 
         /// <summary>
         /// Upload to server command
         /// </summary>
-        public ICommand UploadToServer => new DelegateCommand(() =>
+        public ICommand UploadToServer => new DelegateCommand<string>((str) =>
         {
-            MessageBox.Show(Screenshot.Base64);
 
-        });
+        },(str) => str != null);
 
-       
     }
 }

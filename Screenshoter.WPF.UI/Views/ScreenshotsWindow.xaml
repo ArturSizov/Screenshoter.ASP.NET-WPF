@@ -11,7 +11,6 @@
         Height="650" Width="1000">
     <Window.Resources>
         <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
-        <converter:IsEnabledButtonConverter x:Key="IsEnabledButtonConverter"/>
     </Window.Resources>
 
     <Grid>
@@ -34,20 +33,21 @@
 
         <Border Grid.Row="1" Grid.Column="0" Background="Transparent" BorderBrush="Silver" BorderThickness="1" 
                 CornerRadius="8,8,3,3" Margin="3" >
-            <StackPanel >
+            <StackPanel>
                 <Image Source="{Binding Screenshot.Base64, Converter={StaticResource Base64ImageConverter}}"
 					   MinWidth="500" MinHeight="500" Margin="15" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Button Style="{StaticResource ButtonCustom}" Content="Удалить" Command="{Binding DeleteScreenshot}"/>
             </StackPanel>
         </Border>
         <!--#endregion-->
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Style="{StaticResource ButtonCustom}" Content="Скриншот" Command="{Binding TakeAScreenshot}"/>
-            <Button Style="{StaticResource ButtonCustom}" Content="Удалить" Command="{Binding DeleteScreenshot}" IsEnabled="{Binding Screenshot.Base64, Converter={StaticResource IsEnabledButtonConverter}}"/>
-            <Button Style="{StaticResource ButtonCustom}" Content="Загрузить на сервер" Command="{Binding UploadToServer}" IsEnabled="{Binding Screenshot.Base64, Converter={StaticResource IsEnabledButtonConverter}}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Удалить" Command="{Binding DeleteScreenshot}" CommandParameter="{Binding Screenshot.Base64}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Загрузить на сервер" Command="{Binding UploadToServer}" CommandParameter="{Binding Screenshot.Base64}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-            <CheckBox Content="Загружать на сервер автоматический" Command="{Binding TakeScreenshot}"
+            <CheckBox Content="Загружать на сервер автоматический" Command="{Binding TakeAScreenshot}"
 					  Margin="5,0,0,0"/>
         </StackPanel>
 
