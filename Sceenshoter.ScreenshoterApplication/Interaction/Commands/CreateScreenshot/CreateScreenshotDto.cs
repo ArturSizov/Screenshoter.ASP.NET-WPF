@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Screenshoter.ScreenshoterApplication.Common.Mappings;
-using Screenshoter.ScreenshoterApplication.Interaction.Commands.CreateScreenshot;
 using System.ComponentModel.DataAnnotations;
 
-namespace Screenshoter.ASP.NET.Models
+namespace Screenshoter.ScreenshoterApplication.Interaction.Commands.CreateScreenshot
 {
     public class CreateScreenshotDto : IMapWith<CreateScreenshotCommand>
     {

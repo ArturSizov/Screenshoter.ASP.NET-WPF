@@ -1,4 +1,5 @@
-﻿using Screenshoter.ScreenshoterApplication.Interfaces;
+﻿using Screenshoter.ScreenshoterApplication.Common.Mappings;
+using Screenshoter.ScreenshoterApplication.Interfaces;
 using Screenshoter.WPF.UI.Infrastructure;
 using System.Windows;
 using Unity;
@@ -17,7 +18,6 @@ namespace Screenshoter.WPF.UI
         private void ConfigureIOC()
         {
             RootContainer.Container.RegisterSingleton<IScreenshoterHttpClient, ScreenshoterHttpClient>();
-
         }
     }
 }

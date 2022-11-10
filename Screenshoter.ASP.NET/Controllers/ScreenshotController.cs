@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList;
-using Screenshoter.ASP.NET.Models;
 using Screenshoter.ScreenshoterApplication.Interaction.Commands.CreateScreenshot;
 using Screenshoter.ScreenshoterApplication.Interaction.Commands.DeleteScreenshot;
 

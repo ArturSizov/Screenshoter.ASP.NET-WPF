@@ -14,27 +14,31 @@ namespace Screenshoter.WPF.UI.ViewModels
 {
     public class ScreenshotsWindowViewModel : BindableBase
     {
+        #region Private property
         private IScreenshoterHttpClient _client;
+        private ScreenshotLookupDto _screenshot = new();
         private ObservableCollection<ScreenshotLookupDto> _screenshots;
         private bool _isChecked;
+        #endregion
 
+        #region Public property
         public string Title => "Screenshoter";
 
-        private ScreenshotLookupDto _screenshot = new();
-       
         public ScreenshotLookupDto Screenshot { get => _screenshot; set => SetValue(ref _screenshot, value); }
 
         public ObservableCollection<ScreenshotLookupDto> Screenshots { get => _screenshots; set => SetValue(ref _screenshots, value); }
 
         public bool IsChecked { get => _isChecked; set => SetValue(ref _isChecked, value); }
+        #endregion
 
-
+        #region Ctor
         public ScreenshotsWindowViewModel(IScreenshoterHttpClient client)
         {
             _client = client;
 
             IsChecked = Convert.ToBoolean(ReadSettings(1));
         }
+        #endregion
 
         #region Commands
         public ICommand GetAllScreenshotsAsync => new DelegateCommand(async() =>
@@ -46,7 +50,7 @@ namespace Screenshoter.WPF.UI.ViewModels
         /// <summary>
         /// Screenshot Command
         /// </summary>
-        public ICommand TakeAScreenshot => new DelegateCommand(() =>
+        public ICommand TakeAScreenshot => new DelegateCommand(async() =>
         {
             var bounds = Screen.GetBounds(Point.Empty);
 
@@ -58,12 +62,11 @@ namespace Screenshoter.WPF.UI.ViewModels
                     g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
                     bitmap.Save(ms, ImageFormat.Jpeg);
                     Screenshot.Base64 = Convert.ToBase64String(ms.GetBuffer());
+                    Screenshot.CreateDate = DateTime.Now;
                 }
             }
-
-            if (IsChecked) UploadToServerMethod();
+            if (IsChecked) await _client.UploadToServerAsync(Screenshot);
         });
-
 
         /// <summary>
         /// Delete screen command
@@ -77,9 +80,9 @@ namespace Screenshoter.WPF.UI.ViewModels
         /// <summary>
         /// Upload to server command
         /// </summary>
-        public ICommand UploadToServer => new DelegateCommand<string>((str) =>
+        public ICommand UploadToServer => new DelegateCommand<string>(async(str) =>
         {
-            UploadToServerMethod();
+            await _client.UploadToServerAsync(Screenshot);
 
         },(str) => str != null & !IsChecked);
 
@@ -95,9 +98,9 @@ namespace Screenshoter.WPF.UI.ViewModels
 
         #region Methods
         /// <summary>
-        /// Write to language settings file
+        ///  Write to language settings file
         /// </summary>
-        /// <param name="language"></param>
+        /// <param name="isCheked"></param>
         private void WriteSettings(bool isCheked)
         {
             var path = "Settings.txt";
