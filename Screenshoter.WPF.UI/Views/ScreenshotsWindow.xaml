@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Screenshoter.WPF.UI.Views"
+        xmlns:local="clr-namespace:Screenshoter.WPF.UI.ViewModels"
         xmlns:converter="clr-namespace:Screenshoter.WPF.UI.Converters"
         DataContext="{Binding Source={StaticResource Locator}, Path=ScreenshotsWindowViewModel, UpdateSourceTrigger=PropertyChanged}"
         mc:Ignorable="d"
@@ -12,6 +12,11 @@
     <Window.Resources>
         <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
     </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Alt" Command="{Binding TakeAScreenshot}"/>
+    </Window.InputBindings>
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -35,8 +40,7 @@
                 CornerRadius="8,8,3,3" Margin="3" >
             <StackPanel>
                 <Image Source="{Binding Screenshot.Base64, Converter={StaticResource Base64ImageConverter}}"
-					   MinWidth="500" MinHeight="500" Margin="15" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Button Style="{StaticResource ButtonCustom}" Content="Удалить" Command="{Binding DeleteScreenshot}"/>
+					   MinWidth="500" MinHeight="500" Margin="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </StackPanel>
         </Border>
         <!--#endregion-->
@@ -47,8 +51,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-            <CheckBox Content="Загружать на сервер автоматический" Command="{Binding TakeAScreenshot}"
-					  Margin="5,0,0,0"/>
+            <CheckBox Content="Загружать на сервер автоматический" IsChecked="{Binding IsChecked}" Command="{Binding IsCheckedCommand}" Margin="5,0,0,0"/>
         </StackPanel>
 
         <!--#region List-->

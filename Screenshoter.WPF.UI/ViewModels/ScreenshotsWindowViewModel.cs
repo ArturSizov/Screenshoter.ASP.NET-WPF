@@ -16,7 +16,7 @@ namespace Screenshoter.WPF.UI.ViewModels
     {
         private IScreenshoterHttpClient _client;
         private ObservableCollection<ScreenshotLookupDto> _screenshots;
-        public bool _isEnabled = false;
+        private bool _isChecked;
 
         public string Title => "Screenshoter";
 
@@ -26,11 +26,17 @@ namespace Screenshoter.WPF.UI.ViewModels
 
         public ObservableCollection<ScreenshotLookupDto> Screenshots { get => _screenshots; set => SetValue(ref _screenshots, value); }
 
-        public bool IsEnabled { get => _isEnabled; set => SetValue(ref _isEnabled, value); }
+        public bool IsChecked { get => _isChecked; set => SetValue(ref _isChecked, value); }
 
 
-        public ScreenshotsWindowViewModel(IScreenshoterHttpClient client) => _client = client;
+        public ScreenshotsWindowViewModel(IScreenshoterHttpClient client)
+        {
+            _client = client;
 
+            IsChecked = Convert.ToBoolean(ReadSettings(1));
+        }
+
+        #region Commands
         public ICommand GetAllScreenshotsAsync => new DelegateCommand(async() =>
         {
             Screenshots = await _client.GetAllScreenshotsAsync();
@@ -54,8 +60,10 @@ namespace Screenshoter.WPF.UI.ViewModels
                     Screenshot.Base64 = Convert.ToBase64String(ms.GetBuffer());
                 }
             }
-            IsEnabled = true;
+
+            if (IsChecked) UploadToServerMethod();
         });
+
 
         /// <summary>
         /// Delete screen command
@@ -71,8 +79,66 @@ namespace Screenshoter.WPF.UI.ViewModels
         /// </summary>
         public ICommand UploadToServer => new DelegateCommand<string>((str) =>
         {
+            UploadToServerMethod();
 
-        },(str) => str != null);
+        },(str) => str != null & !IsChecked);
+
+        /// <summary>
+        /// Save status command
+        /// </summary>
+        public ICommand IsCheckedCommand => new DelegateCommand(() =>
+        {
+            WriteSettings(_isChecked);
+        });
+
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// Write to language settings file
+        /// </summary>
+        /// <param name="language"></param>
+        private void WriteSettings(bool isCheked)
+        {
+            var path = "Settings.txt";
+            using (StreamWriter writer = new StreamWriter(Path.GetFullPath(path)))
+            {
+                writer.WriteLine(isCheked);
+            }
+        }
+        
+        /// <summary>
+        /// Read to settings file
+        /// </summary>
+        /// <param name="lineNumber"></param>
+        /// <returns></returns>
+        private string ReadSettings(int lineNumber)
+        {
+            var path = "Settings.txt";
+
+            string line = null;
+
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                using (StreamReader reader = new StreamReader(fs))
+                {
+                    for (int i = 0; i < lineNumber; ++i)
+                    {
+                        line = reader.ReadLine();
+                    }
+                }
+                return line;
+            };
+        }
+
+        /// <summary>
+        /// Server upload method
+        /// </summary>
+        private void UploadToServerMethod()
+        {
+            MessageBox.Show("Ok");
+        }
+        #endregion
 
     }
 }
