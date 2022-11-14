@@ -18,16 +18,18 @@ namespace Screenshoter.WPF.UI.ViewModels
         private ScreenshotLookupDto _screenshot = new();
         private ObservableCollection<ScreenshotLookupDto> _screenshots;
         private bool _isChecked;
+        private DateTime _startDate = DateTime.Now;
+        private DateTime _endDate = DateTime.Now;
         #endregion
 
         #region Public property
         public string Title => "Screenshoter";
 
         public ScreenshotLookupDto Screenshot { get => _screenshot; set => SetValue(ref _screenshot, value); }
-
         public ObservableCollection<ScreenshotLookupDto> Screenshots { get => _screenshots; set => SetValue(ref _screenshots, value); }
-
         public bool IsChecked { get => _isChecked; set => SetValue(ref _isChecked, value); }
+        public DateTime StartDate { get => _startDate; set => SetValue(ref _startDate, value); }
+        public DateTime EndDate { get => _endDate; set => SetValue(ref _endDate, value); }
         #endregion
 
         #region Ctor
@@ -42,7 +44,7 @@ namespace Screenshoter.WPF.UI.ViewModels
         #region Commands
         public ICommand GetAllScreenshotsAsync => new DelegateCommand(async() =>
         {
-            Screenshots = await _client.GetAllScreenshotsAsync();
+            Screenshots = await _client.GetScreenshotsAsync(StartDate, EndDate);
 
         });
 

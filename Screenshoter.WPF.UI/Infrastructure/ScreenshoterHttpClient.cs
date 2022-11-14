@@ -1,16 +1,14 @@
-﻿using AutoMapper;
-using MediatR;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Sceenshoter.Domain.Models;
 using Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList;
 using Screenshoter.ScreenshoterApplication.Interaction.Commands.CreateScreenshot;
 using Screenshoter.ScreenshoterApplication.Interfaces;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
 
 namespace Screenshoter.WPF.UI.Infrastructure
 {
@@ -27,9 +25,9 @@ namespace Screenshoter.WPF.UI.Infrastructure
             _client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<ObservableCollection<ScreenshotLookupDto>>GetAllScreenshotsAsync()
+        public async Task<ObservableCollection<ScreenshotLookupDto>>GetScreenshotsAsync(DateTime startDate, DateTime endDate)
         {
-            var col = JsonConvert.DeserializeObject<ScreenshotList>(await _client.GetStringAsync(_url));
+            var col = JsonConvert.DeserializeObject<ScreenshotList>(await _client.GetStringAsync($"{_url}/{startDate:MM/dd/yyyy}/{endDate:MM/dd/yyyy}"));
 
             return new ObservableCollection<ScreenshotLookupDto>(col.Screenshots);
         }

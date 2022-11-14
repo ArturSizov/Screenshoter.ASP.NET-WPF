@@ -5,7 +5,7 @@ namespace Screenshoter.ScreenshoterApplication.Interfaces
 {
     public interface IScreenshoterHttpClient
     {
-        Task<ObservableCollection<ScreenshotLookupDto>>GetAllScreenshotsAsync();
+        Task<ObservableCollection<ScreenshotLookupDto>> GetScreenshotsAsync(DateTime startDate, DateTime endDate);
         Task UploadToServerAsync(ScreenshotLookupDto screenshot);
     }
 }

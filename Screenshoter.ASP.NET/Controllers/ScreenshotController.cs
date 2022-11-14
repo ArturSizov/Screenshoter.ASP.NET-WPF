@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList;
 using Screenshoter.ScreenshoterApplication.Interaction.Commands.CreateScreenshot;
 using Screenshoter.ScreenshoterApplication.Interaction.Commands.DeleteScreenshot;
+using System.Collections.ObjectModel;
 
 namespace Screenshoter.ASP.NET.Controllers
 {
@@ -20,19 +22,32 @@ namespace Screenshoter.ASP.NET.Controllers
         /// Sample request:
         /// GET /note
         /// </remarks>
-        /// <returns>Returns NoteListVm</returns>
+        /// <returns>Returns Screenshots</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet]
+        [HttpGet("{startDate}/{endDate}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ScreenshotList>> GetAll()
+        public async Task<ActionResult<ScreenshotList>> GetAll(DateTime startDate, DateTime endDate)
         {
             var screenshot = new GetScreenshotListQuery
             {
-               Id = Id
+                Id = Id
             };
+
             var vm = await Mediator.Send(screenshot);
-            return Ok(vm);
+
+            var screenshotVm = new ScreenshotList { Screenshots = new ObservableCollection<ScreenshotLookupDto>()};
+
+            for (var time = startDate; time <= endDate; time = time.AddDays(1))
+            {               
+                var selected = vm.Screenshots.Where(p => p.CreateDate.Date == time.Date);
+
+                foreach (var item in selected)
+                {
+                    screenshotVm.Screenshots.Add(item);
+                }
+            }           
+            return Ok(screenshotVm);
         }
 
         /// <summary>
