@@ -8,7 +8,6 @@ using Screenshoter.ScreenshoterApplication.Interfaces;
 using Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList;
 using System.IO;
 using System;
-using Screenshoter.WPF.UI.Converters;
 
 namespace Screenshoter.WPF.UI.ViewModels
 {
@@ -132,14 +131,6 @@ namespace Screenshoter.WPF.UI.ViewModels
                 }
                 return line;
             };
-        }
-
-        /// <summary>
-        /// Server upload method
-        /// </summary>
-        private void UploadToServerMethod()
-        {
-            MessageBox.Show("Ok");
         }
         #endregion
 

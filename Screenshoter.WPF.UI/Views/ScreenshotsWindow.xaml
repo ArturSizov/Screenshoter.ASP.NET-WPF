@@ -20,10 +20,11 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/> <!--Title-->
             <RowDefinition Height="30"/>
+            <RowDefinition/> <!--List View-->
+            <RowDefinition Height="50"/> <!--Buttons-->
+            <RowDefinition Height="30"/> <!--CheckBox-->
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -33,68 +34,60 @@
 
         <!--#region Screenshot-->
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Скриншот" HorizontalAlignment="Center" Foreground="Red" FontSize="18"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" Visibility="Visible"
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Visibility="Visible"
                    Text="Чтобы сделать скриншот нажмите ALT+S или кнопку &quot;Скриншот&quot;" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-        <Border Grid.Row="1" Grid.Column="0" Background="Transparent" BorderBrush="Silver" BorderThickness="1" 
-                CornerRadius="8,8,3,3" Margin="3" >
+        <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Background="Transparent" BorderBrush="Silver" BorderThickness="1"  CornerRadius="8,8,3,3" Margin="3">
             <StackPanel>
-                <Image Source="{Binding Screenshot.Base64, Converter={StaticResource Base64ImageConverter}}"
-					   MinWidth="500" MinHeight="500" Margin="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Image Source="{Binding Screenshot.Base64, Converter={StaticResource Base64ImageConverter}}" MinWidth="500" MinHeight="500" Margin="15" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </StackPanel>
         </Border>
-        <!--#endregion-->
-        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                
+        <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Style="{StaticResource ButtonCustom}" Content="Скриншот" Command="{Binding TakeAScreenshot}"/>
             <Button Style="{StaticResource ButtonCustom}" Content="Удалить" Command="{Binding DeleteScreenshot}" CommandParameter="{Binding Screenshot.Base64}"/>
             <Button Style="{StaticResource ButtonCustom}" Content="Загрузить на сервер" Command="{Binding UploadToServer}" CommandParameter="{Binding Screenshot.Base64}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+        <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
             <CheckBox Content="Загружать на сервер автоматический" IsChecked="{Binding IsChecked}" Command="{Binding IsCheckedCommand}" Margin="5,0,0,0"/>
         </StackPanel>
-
+        <!--#endregion-->
+        
         <!--#region List-->
         <TextBlock Grid.Row="0" Grid.Column="1" Text="Список скриншотов" HorizontalAlignment="Center" Foreground="Red" FontSize="18"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="Список пуст.&#x0a; Выберите диапозон дат и нажмите &quot;Загрузить&quot;" 
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Text="Список пуст.&#x0a; Выберите диапозон дат и нажмите &quot;Загрузить&quot;" 
 					   HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
-        <Border Grid.Row="1" Grid.Column="1" Background="Transparent" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" Margin="3">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <TextBlock Text="Дата начала поиска:" VerticalAlignment="Center" Margin="3"/>
-                    <DatePicker/>
-                    <TextBlock Text="Дата конца поиска:" VerticalAlignment="Center" Margin="3"/>
-                    <DatePicker/>
-                </StackPanel>
-                
-                <DataGrid Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Screenshots}"
-                          Visibility="Visible"
-                          AutoGenerateColumns="False"
-                          Margin="5"
-                          AlternatingRowBackground="AliceBlue"
-                          Background="White"
-                          CanUserAddRows="False"
-                          CanUserDeleteRows="False"
-                          ColumnHeaderHeight="30"
-                          GridLinesVisibility="Horizontal"
-                          IsReadOnly="True"
-                          RowBackground="Transparent"                         
-                          SelectionMode="Single"
-                          SelectionUnit="FullRow">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Картинка" Binding="{Binding Base64}" Width="*"/>
-                        <DataGridTextColumn Header="Дата" Binding="{Binding CreateDate}" Width="*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+        <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" Margin="3">
+            <StackPanel Orientation="Horizontal" Margin="5" VerticalAlignment="Top"> <!--List DatePicker-->
+                <TextBlock Text="Дата начала поиска:" VerticalAlignment="Center" Margin="3"/>
+                <DatePicker/>
+                <TextBlock Text="Дата конца поиска:" VerticalAlignment="Center" Margin="3"/>
+                <DatePicker/>
             </StackPanel>
-            
         </Border>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Style="{StaticResource ButtonCustom}" Content="Загрузить" Command="{Binding GetAllScreenshotsAsync}"/>
-            <Button Style="{StaticResource ButtonCustom}" Content="Сохранить" Command="{Binding SaveScreenshot}" 
+        <Border Grid.Row="2" Grid.Column="1" Background="Transparent" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" Margin="3">
+            <ListBox ItemsSource="{Binding Screenshots}" Margin="5">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Width="500">
+                            <Image Source="{Binding Base64, Converter={StaticResource Base64ImageConverter}}" Height="150" Width="150"/>
+                            <TextBlock Text="{Binding CreateDate, StringFormat=Дата: \{0:d\} г.}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="{Binding CreateDate, StringFormat=Время: {0:HH:mm}}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+        
+
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{StaticResource ButtonCustom}" Content="Загрузить" Command="{Binding GetAllScreenshotsAsync}"/>
+                <Button Style="{StaticResource ButtonCustom}" Content="Сохранить" Command="{Binding SaveScreenshot}" 
                     CommandParameter="{Binding}"/>
-        </StackPanel>
+            </StackPanel>    
+        
         <!--#endregion-->
     </Grid>
 </Window>

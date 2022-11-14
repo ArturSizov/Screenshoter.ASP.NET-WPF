@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Newtonsoft.Json;
+using Sceenshoter.Domain.Models;
 using Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList;
 using Screenshoter.ScreenshoterApplication.Interaction.Commands.CreateScreenshot;
 using Screenshoter.ScreenshoterApplication.Interfaces;
@@ -15,23 +16,22 @@ namespace Screenshoter.WPF.UI.Infrastructure
 {
     public class ScreenshoterHttpClient : IScreenshoterHttpClient
     {
-        public HttpClient Client { get; }
+        private HttpClient _client;
 
         private string _url = "https://localhost:7082/api/Screenshot";
         public ScreenshoterHttpClient()
         {
-            
-            Client = new HttpClient();
-            Client.BaseAddress = new Uri(_url);
-            Client.DefaultRequestHeaders.Accept.Clear();
-            Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            _client = new HttpClient();
+            _client.BaseAddress = new Uri(_url);
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<ObservableCollection<ScreenshotLookupDto>> GetAllScreenshotsAsync()
+        public async Task<ObservableCollection<ScreenshotLookupDto>>GetAllScreenshotsAsync()
         {
-            var col = JsonConvert.DeserializeObject<ScreenshotList>(await Client.GetStringAsync(_url));
+            var col = JsonConvert.DeserializeObject<ScreenshotList>(await _client.GetStringAsync(_url));
 
-            return new ObservableCollection<ScreenshotLookupDto>(col.Screenshots);  
+            return new ObservableCollection<ScreenshotLookupDto>(col.Screenshots);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Screenshoter.WPF.UI.Infrastructure
             {
                 Base64 = screenshot.Base64
             };
-            await Client.PostAsJsonAsync(_url, ceateScreen);
+            await _client.PostAsJsonAsync(_url, ceateScreen);
         }
     }
 }
