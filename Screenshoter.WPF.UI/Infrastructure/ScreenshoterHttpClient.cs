@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Sceenshoter.Domain.Models;
 using Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList;
 using Screenshoter.ScreenshoterApplication.Interaction.Commands.CreateScreenshot;
 using Screenshoter.ScreenshoterApplication.Interfaces;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -43,6 +41,16 @@ namespace Screenshoter.WPF.UI.Infrastructure
                 Base64 = screenshot.Base64
             };
             await _client.PostAsJsonAsync(_url, ceateScreen);
+        }
+
+        /// <summary>
+        /// Remove screenshot from server
+        /// </summary>
+        /// <param name="screenshot"></param>
+        /// <returns></returns>
+        public async Task DeleteScreenshotServerAsync(ScreenshotLookupDto screenshot)
+        {
+            await _client.DeleteAsync($"{_url}/{screenshot.Id}");
         }
     }
 }

@@ -16,6 +16,7 @@ namespace Screenshoter.WPF.UI.ViewModels
         #region Private property
         private IScreenshoterHttpClient _client;
         private ScreenshotLookupDto _screenshot = new();
+        private ScreenshotLookupDto _selectedScreenshot = new();
         private ObservableCollection<ScreenshotLookupDto> _screenshots;
         private bool _isChecked;
         private DateTime _startDate = DateTime.Now;
@@ -26,6 +27,7 @@ namespace Screenshoter.WPF.UI.ViewModels
         public string Title => "Screenshoter";
 
         public ScreenshotLookupDto Screenshot { get => _screenshot; set => SetValue(ref _screenshot, value); }
+        public ScreenshotLookupDto SelectedScreenshot { get => _selectedScreenshot; set => SetValue(ref _selectedScreenshot, value); }
         public ObservableCollection<ScreenshotLookupDto> Screenshots { get => _screenshots; set => SetValue(ref _screenshots, value); }
         public bool IsChecked { get => _isChecked; set => SetValue(ref _isChecked, value); }
         public DateTime StartDate { get => _startDate; set => SetValue(ref _startDate, value); }
@@ -72,11 +74,12 @@ namespace Screenshoter.WPF.UI.ViewModels
         /// <summary>
         /// Delete screen command
         /// </summary>
-        public ICommand DeleteScreenshot => new DelegateCommand<string>((str) =>
+        public ICommand DeleteScreenshotAsync => new DelegateCommand<ScreenshotLookupDto>(async(screen) =>
         {
-            Screenshot.Base64 = null;
+            await _client.DeleteScreenshotServerAsync(SelectedScreenshot);
+            Screenshots.Remove(SelectedScreenshot);
 
-        },(str)=> str != null);
+        },(scr)=> scr?.Base64 != null);
 
         /// <summary>
         /// Upload to server command

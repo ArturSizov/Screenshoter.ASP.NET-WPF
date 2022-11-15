@@ -72,12 +72,18 @@
 
         <Border Grid.Row="2" Grid.Column="1" Background="Transparent" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" 
                 Margin="3" Visibility="{Binding Screenshots, Converter={StaticResource VisibilityConverter}}">
-            <ListBox ItemsSource="{Binding Screenshots}" Margin="5">
+            <Border.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Открыть" Command="{Binding DeleteScreenshotAsync}"/>
+                    <MenuItem Header="Удалить" Command="{Binding DeleteScreenshotAsync}" CommandParameter="{Binding SelectedScreenshot}"/>
+                </ContextMenu>
+            </Border.ContextMenu>
+            <ListBox ItemsSource="{Binding Screenshots}" SelectedItem="{Binding SelectedScreenshot}" SelectionMode="Single" Margin="5">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Image Source="{Binding Base64, Converter={StaticResource Base64ImageConverter}}" Height="150" Width="150"/>
-                            <TextBlock Text="{Binding CreateDate, StringFormat=Дата: \{0:dd.MM.yyyy\} г.}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="{Binding CreateDate, StringFormat=Дата: \{0:dd.MM.yyyy\}г.}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
                             <TextBlock Text="{Binding CreateDate, StringFormat=Время: {0:HH:mm}м.}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
                         </StackPanel>
                     </DataTemplate>

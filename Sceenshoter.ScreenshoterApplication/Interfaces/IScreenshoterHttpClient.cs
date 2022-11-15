@@ -7,5 +7,6 @@ namespace Screenshoter.ScreenshoterApplication.Interfaces
     {
         Task<ObservableCollection<ScreenshotLookupDto>> GetScreenshotsAsync(DateTime startDate, DateTime endDate);
         Task UploadToServerAsync(ScreenshotLookupDto screenshot);
+        Task DeleteScreenshotServerAsync(ScreenshotLookupDto screenshot);
     }
 }
