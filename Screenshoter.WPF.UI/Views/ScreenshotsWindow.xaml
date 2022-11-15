@@ -21,7 +21,7 @@
     </Window.InputBindings>
 
 
-    <Grid>
+    <Grid x:Name="Content">
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/> <!--Title-->
             <RowDefinition Height="30"/>
@@ -38,7 +38,7 @@
         <!--#region Screenshot-->
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Скриншот" HorizontalAlignment="Center" Foreground="Red" FontSize="18"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Visibility="Visible"
-                   Text="Чтобы сделать скриншот нажмите ALT+S или кнопку &quot;Скриншот&quot;" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                   Text="Чтобы сделать скриншот нажмите ALT+N или кнопку &quot;Скриншот&quot;" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Background="Transparent" BorderBrush="Silver" BorderThickness="1"  CornerRadius="8,8,3,3" Margin="3">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image Source="{Binding Screenshot.Base64, Converter={StaticResource Base64ImageConverter}}" MinWidth="500" MinHeight="500" Margin="15" 
@@ -47,7 +47,7 @@
         </Border>
                 
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Style="{StaticResource ButtonCustom}" Content="Скриншот" Command="{Binding TakeAScreenshot}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Скриншот" Command="{Binding TakeAScreenshot}" CommandParameter="{Binding ElementName=Content}"/>
             <Button Style="{StaticResource ButtonCustom}" Content="Удалить" Command="{Binding DeleteScreenshot}" CommandParameter="{Binding Screenshot.Base64}"/>
             <Button Style="{StaticResource ButtonCustom}" Content="Загрузить на сервер" Command="{Binding UploadToServer}" CommandParameter="{Binding Screenshot.Base64}"/>
         </StackPanel>
@@ -64,17 +64,16 @@
         <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Background="Transparent" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" Margin="3">
             <StackPanel Orientation="Horizontal" Margin="5" VerticalAlignment="Top"> <!--List DatePicker-->
                 <TextBlock Text="Дата начала поиска:" VerticalAlignment="Center" Margin="3"/>
-                <DatePicker SelectedDate="{Binding StartDate}"/>
+                <DatePicker SelectedDate="{Binding StartDate}" DisplayDateEnd="{x:Static sys:DateTime.Now}"/>
                 <TextBlock Text="Дата конца поиска:" VerticalAlignment="Center" Margin="3"/>
                 <DatePicker SelectedDate="{Binding EndDate}" DisplayDateEnd="{x:Static sys:DateTime.Now}"/>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="2" Grid.Column="1" Background="Transparent" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" 
-                Margin="3" Visibility="{Binding Screenshots, Converter={StaticResource VisibilityConverter}}">
+                Margin="3" Visibility="{Binding Screenshots, Converter={StaticResource VisibilityConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <Border.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Открыть" Command="{Binding DeleteScreenshotAsync}"/>
                     <MenuItem Header="Удалить" Command="{Binding DeleteScreenshotAsync}" CommandParameter="{Binding SelectedScreenshot}"/>
                 </ContextMenu>
             </Border.ContextMenu>
@@ -94,9 +93,7 @@
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Style="{StaticResource ButtonCustom}" Content="Загрузить" Command="{Binding GetScreenshotsAsync}"/>
-                <Button Style="{StaticResource ButtonCustom}" Content="Сохранить" Command="{Binding SaveScreenshot}" 
-                    CommandParameter="{Binding}"/>
-            </StackPanel>    
+        </StackPanel>    
         
         <!--#endregion-->
     </Grid>

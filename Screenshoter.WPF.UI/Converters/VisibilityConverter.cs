@@ -14,7 +14,7 @@ namespace Screenshoter.WPF.UI.Converters
             {
                 var scrennshots = value as ObservableCollection<ScreenshotLookupDto>;
 
-                if (scrennshots.Count != 0) return "Visible";
+                if (scrennshots?.Count != 0) return "Visible";
 
                 else return "Collapsed";
             }

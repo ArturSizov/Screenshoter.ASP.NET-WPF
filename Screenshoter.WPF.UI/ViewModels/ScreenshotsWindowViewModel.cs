@@ -8,6 +8,12 @@ using Screenshoter.ScreenshoterApplication.Interfaces;
 using Sceenshoter.ScreenshoterApplication.Interaction.Queries.GetScreensotList;
 using System.IO;
 using System;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using System.Windows;
+using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using Point = System.Drawing.Point;
 
 namespace Screenshoter.WPF.UI.ViewModels
 {
@@ -44,7 +50,7 @@ namespace Screenshoter.WPF.UI.ViewModels
         #endregion
 
         #region Commands
-        public ICommand GetScreenshotsAsync => new DelegateCommand(async() =>
+        public ICommand GetScreenshotsAsync => new DelegateCommand(async () =>
         {
             Screenshots = await _client.GetScreenshotsAsync(StartDate, EndDate);
 
@@ -53,7 +59,7 @@ namespace Screenshoter.WPF.UI.ViewModels
         /// <summary>
         /// Screenshot Command
         /// </summary>
-        public ICommand TakeAScreenshot => new DelegateCommand(async() =>
+        public ICommand TakeAScreenshot => new DelegateCommand<FrameworkElement>(async (frameworkElement) =>
         {
             var bounds = Screen.GetBounds(Point.Empty);
 
@@ -72,23 +78,33 @@ namespace Screenshoter.WPF.UI.ViewModels
         });
 
         /// <summary>
-        /// Delete screen command
+        /// Delete screen command as DB
         /// </summary>
-        public ICommand DeleteScreenshotAsync => new DelegateCommand<ScreenshotLookupDto>(async(screen) =>
+        public ICommand DeleteScreenshotAsync => new DelegateCommand<ScreenshotLookupDto>(async (screen) =>
         {
             await _client.DeleteScreenshotServerAsync(SelectedScreenshot);
-            Screenshots.Remove(SelectedScreenshot);
 
-        },(scr)=> scr?.Base64 != null);
+            Screenshots = await _client.GetScreenshotsAsync(StartDate, EndDate);
+
+        }, (scr) => scr?.Base64 != null);
+
+        /// <summary>
+        /// Delete screen command 
+        /// </summary>
+        public ICommand DeleteScreenshot => new DelegateCommand<string>((str) =>
+        {
+            Screenshot.Base64 = null;
+
+        }, (str) => str != null);
 
         /// <summary>
         /// Upload to server command
         /// </summary>
-        public ICommand UploadToServer => new DelegateCommand<string>(async(str) =>
+        public ICommand UploadToServer => new DelegateCommand<string>(async (str) =>
         {
             await _client.UploadToServerAsync(Screenshot);
 
-        },(str) => str != null & !IsChecked);
+        }, (str) => str != null & !IsChecked);
 
         /// <summary>
         /// Save status command
@@ -113,7 +129,7 @@ namespace Screenshoter.WPF.UI.ViewModels
                 writer.WriteLine(isCheked);
             }
         }
-        
+
         /// <summary>
         /// Read to settings file
         /// </summary>
@@ -138,6 +154,5 @@ namespace Screenshoter.WPF.UI.ViewModels
             };
         }
         #endregion
-
     }
 }
