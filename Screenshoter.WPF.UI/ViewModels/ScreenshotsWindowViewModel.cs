@@ -14,6 +14,7 @@ using System.Windows;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Point = System.Drawing.Point;
+using Screenshoter.WPF.UI.Infrastructure;
 
 namespace Screenshoter.WPF.UI.ViewModels
 {
@@ -46,11 +47,14 @@ namespace Screenshoter.WPF.UI.ViewModels
             _client = client;
 
             IsChecked = Convert.ToBoolean(ReadSettings(1));
+
+            HotKeyManager.RegisterHotKey(Keys.N, KeyModifiers.Alt);
+            HotKeyManager.HotKeyPressed += new EventHandler<HotKeyEventArgs>(HotKeyManager_HotKeyPressed);
         }
         #endregion
 
         #region Commands
-        public ICommand GetScreenshotsAsync => new DelegateCommand(async () =>
+        public ICommand GetScreenshotsAsyncCommand => new DelegateCommand(async () =>
         {
             Screenshots = await _client.GetScreenshotsAsync(StartDate, EndDate);
 
@@ -59,28 +63,17 @@ namespace Screenshoter.WPF.UI.ViewModels
         /// <summary>
         /// Screenshot Command
         /// </summary>
-        public ICommand TakeAScreenshot => new DelegateCommand<FrameworkElement>(async (frameworkElement) =>
+        public ICommand TakeAScreenshotAsycnCommand => new DelegateCommand<FrameworkElement>(async (frameworkElement) =>
         {
-            var bounds = Screen.GetBounds(Point.Empty);
-
-            using (var ms = new MemoryStream())
-            {
-                using (var bitmap = new Bitmap(bounds.Width, bounds.Height))
-                {
-                    var g = Graphics.FromImage(bitmap);
-                    g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
-                    bitmap.Save(ms, ImageFormat.Jpeg);
-                    Screenshot.Base64 = Convert.ToBase64String(ms.GetBuffer());
-                    Screenshot.CreateDate = DateTime.Now;
-                }
-            }
-            if (IsChecked) await _client.UploadToServerAsync(Screenshot);
+            TakeAScreenshot();
         });
+
+        
 
         /// <summary>
         /// Delete screen command as DB
         /// </summary>
-        public ICommand DeleteScreenshotAsync => new DelegateCommand<ScreenshotLookupDto>(async (screen) =>
+        public ICommand DeleteScreenshotAsyncCommand => new DelegateCommand<ScreenshotLookupDto>(async (screen) =>
         {
             await _client.DeleteScreenshotServerAsync(SelectedScreenshot);
 
@@ -91,7 +84,7 @@ namespace Screenshoter.WPF.UI.ViewModels
         /// <summary>
         /// Delete screen command 
         /// </summary>
-        public ICommand DeleteScreenshot => new DelegateCommand<string>((str) =>
+        public ICommand DeleteScreenshotCommand => new DelegateCommand<string>((str) =>
         {
             Screenshot.Base64 = null;
 
@@ -100,7 +93,7 @@ namespace Screenshoter.WPF.UI.ViewModels
         /// <summary>
         /// Upload to server command
         /// </summary>
-        public ICommand UploadToServer => new DelegateCommand<string>(async (str) =>
+        public ICommand UploadToServerAsyncCommand => new DelegateCommand<string>(async (str) =>
         {
             await _client.UploadToServerAsync(Screenshot);
 
@@ -117,6 +110,36 @@ namespace Screenshoter.WPF.UI.ViewModels
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Take a screenshot method 
+        /// </summary>
+        private void TakeAScreenshot()
+        {
+            var bounds = Screen.GetBounds(Point.Empty);
+
+            using (var ms = new MemoryStream())
+            {
+                using (var bitmap = new Bitmap(bounds.Width, bounds.Height))
+                {
+                    var g = Graphics.FromImage(bitmap);
+                    g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
+                    bitmap.Save(ms, ImageFormat.Jpeg);
+                    Screenshot.Base64 = Convert.ToBase64String(ms.GetBuffer());
+                    Screenshot.CreateDate = DateTime.Now;
+                }
+            }
+
+            if (IsChecked) _client.UploadToServerAsync(Screenshot);
+        }
+        /// <summary>
+        /// Keyboard Shortcut Event Method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HotKeyManager_HotKeyPressed(object? sender, HotKeyEventArgs e)
+        {
+            TakeAScreenshot();
+        }
         /// <summary>
         ///  Write to language settings file
         /// </summary>

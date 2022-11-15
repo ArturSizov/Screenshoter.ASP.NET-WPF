@@ -17,7 +17,7 @@
     </Window.Resources>
 
     <Window.InputBindings>
-        <KeyBinding Key="N" Modifiers="Alt" Command="{Binding TakeAScreenshot}"/>
+        <KeyBinding Key="N" Modifiers="Alt" Command="{Binding TakeAScreenshotAsycnCommand}"/>
     </Window.InputBindings>
 
 
@@ -47,9 +47,9 @@
         </Border>
                 
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Style="{StaticResource ButtonCustom}" Content="Скриншот" Command="{Binding TakeAScreenshot}" CommandParameter="{Binding ElementName=Content}"/>
-            <Button Style="{StaticResource ButtonCustom}" Content="Удалить" Command="{Binding DeleteScreenshot}" CommandParameter="{Binding Screenshot.Base64}"/>
-            <Button Style="{StaticResource ButtonCustom}" Content="Загрузить на сервер" Command="{Binding UploadToServer}" CommandParameter="{Binding Screenshot.Base64}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Скриншот" Command="{Binding TakeAScreenshotAsycnCommand}" CommandParameter="{Binding ElementName=Content}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Удалить" Command="{Binding DeleteScreenshotCommand}" CommandParameter="{Binding Screenshot.Base64}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Загрузить на сервер" Command="{Binding UploadToServerAsyncCommand}" CommandParameter="{Binding Screenshot.Base64}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
@@ -74,7 +74,7 @@
                 Margin="3" Visibility="{Binding Screenshots, Converter={StaticResource VisibilityConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <Border.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Удалить" Command="{Binding DeleteScreenshotAsync}" CommandParameter="{Binding SelectedScreenshot}"/>
+                    <MenuItem Header="Удалить" Command="{Binding DeleteScreenshotAsyncCommand}" CommandParameter="{Binding SelectedScreenshot}"/>
                 </ContextMenu>
             </Border.ContextMenu>
             <ListBox ItemsSource="{Binding Screenshots}" SelectedItem="{Binding SelectedScreenshot}" SelectionMode="Single" Margin="5">
@@ -92,7 +92,7 @@
         
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Style="{StaticResource ButtonCustom}" Content="Загрузить" Command="{Binding GetScreenshotsAsync}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Загрузить" Command="{Binding GetScreenshotsAsyncCommand}"/>
         </StackPanel>    
         
         <!--#endregion-->
