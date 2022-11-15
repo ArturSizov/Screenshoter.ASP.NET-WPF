@@ -42,7 +42,7 @@ namespace Screenshoter.WPF.UI.ViewModels
         #endregion
 
         #region Commands
-        public ICommand GetAllScreenshotsAsync => new DelegateCommand(async() =>
+        public ICommand GetScreenshotsAsync => new DelegateCommand(async() =>
         {
             Screenshots = await _client.GetScreenshotsAsync(StartDate, EndDate);
 

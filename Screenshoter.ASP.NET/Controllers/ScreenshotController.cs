@@ -27,7 +27,7 @@ namespace Screenshoter.ASP.NET.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpGet("{startDate}/{endDate}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ScreenshotList>> GetAll(DateTime startDate, DateTime endDate)
+        public async Task<ActionResult<ScreenshotList>> GetScreenshot(DateTime startDate, DateTime endDate)
         {
             var screenshot = new GetScreenshotListQuery
             {

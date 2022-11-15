@@ -13,6 +13,7 @@
         Width="1200">
     <Window.Resources>
         <converter:Base64ImageConverter x:Key="Base64ImageConverter"/>
+        <converter:VisibilityConverter x:Key="VisibilityConverter"/>
     </Window.Resources>
 
     <Window.InputBindings>
@@ -69,14 +70,15 @@
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Grid.Column="1" Background="Transparent" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" Margin="3" Visibility="Visible">
+        <Border Grid.Row="2" Grid.Column="1" Background="Transparent" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3" 
+                Margin="3" Visibility="{Binding Screenshots, Converter={StaticResource VisibilityConverter}}">
             <ListBox ItemsSource="{Binding Screenshots}" Margin="5">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Image Source="{Binding Base64, Converter={StaticResource Base64ImageConverter}}" Height="150" Width="150"/>
                             <TextBlock Text="{Binding CreateDate, StringFormat=Дата: \{0:dd.MM.yyyy\} г.}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
-                            <TextBlock Text="{Binding CreateDate, StringFormat=Время: {0:HH:mm}}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="{Binding CreateDate, StringFormat=Время: {0:HH:mm}м.}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -85,7 +87,7 @@
         
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Style="{StaticResource ButtonCustom}" Content="Загрузить" Command="{Binding GetAllScreenshotsAsync}"/>
+            <Button Style="{StaticResource ButtonCustom}" Content="Загрузить" Command="{Binding GetScreenshotsAsync}"/>
                 <Button Style="{StaticResource ButtonCustom}" Content="Сохранить" Command="{Binding SaveScreenshot}" 
                     CommandParameter="{Binding}"/>
             </StackPanel>    
